@@ -46,7 +46,6 @@ def a_star(graph: nx.DiGraph,
     
     #main program loop.
     while True:
-
         #get the vertex with current minimal value of \hat{f}.
         #we don't care about the actual value of \hate{f},
         #so we throw it away.
@@ -86,12 +85,12 @@ def a_star(graph: nx.DiGraph,
 
             while pred is not None:
                 
+                next_pred: str = preds[pred]
+
                 #in the animation, change the path vertices to green.
                 if anim_factory:
 
                     anim_factory.vertex_config[pred]['color']: mn.color = mn.GREEN
-                
-                    next_pred: str = preds[pred]
 
                     if next_pred is not None:
                        anim_factory.edge_config[next_pred,pred]['color']: mn.color = mn.GREEN
@@ -128,7 +127,7 @@ def a_star(graph: nx.DiGraph,
             
             #dont care about weight here, so we throw away.
             #if the neighbor is not already in the priority queue, add it.
-            if (_ ,neighbor) not in open_vertices:
+            if neighbor not in [v for (d,v) in open_vertices]:
                 hq.heappush(open_vertices, (distance_guess, neighbor))
                 continue
             
@@ -136,15 +135,15 @@ def a_star(graph: nx.DiGraph,
             #so we may want to update if our new guess is better.
             #note this is different than the or in the psuedocode where
             #we reopen a maybe closed node.
-
-            last_distance_guess: int
-            last_distance_guess, _ = open_vertices[open_vertices.index((_, neighbor))]
+            
+            #each vertex is only in the queue once so doing index 0 here is okay.
+            last_distance_guess: int = [d for (d,v) in open_vertices if v == neighbor][0]
            
             #update \hat{f}(neighbor) if our guess is better and then re-sort priority queue.
             if distance_guess < last_distance_guess:
 
-                open_vertices.remove((_, neightbor))
-                open_vertices.insert((distance_guess, neighbor))
+                open_vertices.remove((last_distance_guess, neighbor))
+                open_vertices.insert(0, (distance_guess, neighbor))
                 hq.heapify(open_vertices)        
 
         #update priority queue if pertinent. 
