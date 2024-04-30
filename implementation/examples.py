@@ -1,7 +1,7 @@
 import networkx as nx
 
 def c6_example() -> nx.DiGraph:
-
+    
     vertices = [('s', {'heuristic': 0, 'open': False}),
                 ('a', {'heuristic': 1, 'open': False}),
                 ('b', {'heuristic': 1, 'open': False}),
@@ -9,8 +9,6 @@ def c6_example() -> nx.DiGraph:
                 ('d', {'heuristic': 3, 'open': False}),
                 ('t', {'heuristic': 0, 'open': False})
                ]
-
-
 
     edges = [('s', 'a', 5), 
              ('a', 'b', 6), 
@@ -25,9 +23,6 @@ def c6_example() -> nx.DiGraph:
     G.add_weighted_edges_from(edges)
     return G
 
-
-
-
 def cities_example() -> nx.DiGraph:
 
     vertices = [('lfk', {'heuristic': 0, 'open': False}),
@@ -41,8 +36,6 @@ def cities_example() -> nx.DiGraph:
                 ('kc', {'heuristic': 36, 'open': False}),
                 ('bvl', {'heuristic': 160, 'open': False})
                ]
-
-
 
     edges = [('lfk', 'tpk', 26), 
              ('tpk', 'emp', 58), 
